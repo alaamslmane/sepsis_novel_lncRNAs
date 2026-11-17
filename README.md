@@ -5,4 +5,4 @@ This repository contains the Linux-based bioinformatics pipeline developed to id
 ## Pipeline Architecture
 The pipeline is organized into three main phases:
 
-## Phase 1: RNA-seq Pre-processing and Alignment
+Phase 1: RNA-seq Pre-processing and Alignment
