@@ -13,8 +13,8 @@ set -e
 
 PROJECT_DIR="/data/records/ONT/long_reads"
 
-BAM_DIR="${PROJECT_DIR}/03_minimap2"
-OUT_DIR="${PROJECT_DIR}/04_cramino"
+BAM_DIR="${PROJECT_DIR}/04_minimap2"
+OUT_DIR="${PROJECT_DIR}/05_cramino"
 
 THREADS=12
 
