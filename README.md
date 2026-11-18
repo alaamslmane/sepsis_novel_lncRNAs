@@ -16,4 +16,4 @@ The pipeline is organized into three main phases:
   
   
   
-  **B. Long-read RNA-seq Processing**
+**B. Long-read RNA-seq Processing**
