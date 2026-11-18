@@ -1,2 +1,6 @@
-*.R linguist-language=R linguist-detectable linguist-generated=false linguist-vendored=false linguist-documentation=false
+# Force R for scripts without a proper extension
+bin/* linguist-language=R
+
+# Or by pattern
 *.sh linguist-language=Shell
+scripts/*.sh linguist-detectable=false
