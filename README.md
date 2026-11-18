@@ -6,3 +6,14 @@ This repository contains the Linux-based bioinformatics pipeline developed to id
 The pipeline is organized into three main phases:
 
 **Phase 1: RNA-seq Pre-processing and Alignment**
+
+**A. Short-read RNA-seq Processing**
+
+- **`01_read_preprocessing.sh`**: Downloads raw FASTQ files, verifies MD5 checksums, and performs adapter trimming and quality filtering using `fastp`. Sequencing quality is assessed using FastQC and FastQ Screen, with reports summarized by MultiQC.
+- **`02_STAR_alignment.sh`**: Aligns fastp-processed paired-end reads to the human reference genome (GRCh38) using STAR, with GENCODE v47 annotations.
+- **`03_BAM_quality_control.sh`**: Evaluates alignment quality and RNA-seq-specific metrics using SAMtools and Qualimap.
+  
+  
+  
+  
+  **B. Long-read RNA-seq Processing**
