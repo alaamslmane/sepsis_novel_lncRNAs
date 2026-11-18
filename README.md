@@ -38,9 +38,9 @@ The pipeline is organized into three main phases:
 - **`10_salmon_quantification.sh`**: Quantifies transcript abundance in paired-end short-read RNA-seq samples using Salmon and the custom decoy-aware transcriptome index combining GENCODE v49 annotations with newly identified transcript candidates.
 - **`11_generate_expression_matrices.R`**: Integrates sample-level Salmon quantification results and the custom transcript annotation to generate transcript- and gene-level expression matrices.
 
-### Dependencies
+## Dependencies
 
--**fastp**
+**fastp**
 
 **FastQC, FastQ Screen, MultiQC**
 
