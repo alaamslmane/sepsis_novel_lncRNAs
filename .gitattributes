@@ -1,2 +1,2 @@
-*.R linguist-language=R linguist-detectable=true
+*.R linguist-language=R linguist-detectable=true linguist-generated=false linguist-vendored=false
 *.sh linguist-language=Shell
