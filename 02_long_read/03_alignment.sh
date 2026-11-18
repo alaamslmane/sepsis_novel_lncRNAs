@@ -13,8 +13,8 @@ set -o pipefail
 
 PROJECT_DIR="/data/records/ONT/long_reads"
 
-FASTQ_DIR="${PROJECT_DIR}/02_chopper"
-OUT_DIR="${PROJECT_DIR}/03_minimap2"
+FASTQ_DIR="${PROJECT_DIR}/03_chopper"
+OUT_DIR="${PROJECT_DIR}/04_minimap2"
 
 # Pre-built minimap2 genome index
 GENOME_INDEX="/data/Ressources/GRCh38.p14/GRCh38.mmi"
