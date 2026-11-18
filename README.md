@@ -40,7 +40,7 @@ The pipeline is organized into three main phases:
 
 ### Dependencies
 
-**`fastp`**
+**fastp**
 
 **`FastQC, FastQ Screen, MultiQC`**
 
