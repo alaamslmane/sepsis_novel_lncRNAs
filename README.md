@@ -64,4 +64,4 @@ The pipeline is organized into three main phases:
 
 **GNU Utilities (wget, md5sum, gzip, awk, sed, sort)**
 
-**`R packages: dplyr, readr, stringr, tibble, magrittr, rtracklayer`**
+**`R packages: tydiverse, dplyr, readr, stringr, tibble, magrittr, rtracklayer`**
