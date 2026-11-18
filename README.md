@@ -21,4 +21,5 @@ The pipeline is organized into three main phases:
 - **`03_alignment.sh`**: Aligns quality-filtered long RNA-seq reads to the human reference genome (GRCh38) using `minimap2`, generating genome-aligned reads for downstream transcriptome assembly.
 - **`04_BAM_QC.sh`**: Evaluates long-read alignment quality using `Cramino`, generating alignment statistics and quality metrics.
 
+
 **Phase 2: Hybrid Transcriptome Assembly**
