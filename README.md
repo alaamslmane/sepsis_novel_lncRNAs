@@ -7,7 +7,7 @@ The pipeline is organized into three main phases:
 
 **Phase 1: RNA-seq Pre-processing and Alignment**
 
-**A. Short-read RNA-seq*
+**A. Short-read RNA-seq**
 
 - **`01_read_QC.sh`**: Downloads raw paired-end FASTQ files, verifies file integrity using MD5 checksums, and merges sequencing lanes for each sample. Checks R1/R2 read concordance and performs adapter trimming and quality filtering using `fastp`. Sequencing quality is assessed using `FastQC` and `FastQ Screen`, with QC metrics consolidated into a single MultiQC report.
 - **`02_alignment.sh`**: Aligns fastp-processed paired-end reads to the human reference genome (GRCh38) using `STAR`, with GENCODE v49 annotations.
@@ -20,3 +20,5 @@ The pipeline is organized into three main phases:
 - **`02_filtering.sh`**: Filters Oxford Nanopore long-read RNA-seq data using `Chopper`, and generates compressed, quality-filtered FASTQ files for downstream splice-aware alignment.
 - **`03_alignment.sh`**: Aligns quality-filtered long RNA-seq reads to the human reference genome (GRCh38) using `minimap2`, generating genome-aligned reads for downstream transcriptome assembly.
 - **`04_BAM_QC.sh`**: Evaluates long-read alignment quality using `Cramino`, generating alignment statistics and quality metrics.
+
+**Phase 2: Hybrid Transcriptome Assembly**
