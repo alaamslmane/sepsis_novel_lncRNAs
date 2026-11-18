@@ -24,4 +24,4 @@ The pipeline is organized into three main phases:
 
 **Phase 2: Hybrid Transcriptome Assembly**
 
-**Phase 4: Transcript Quantification**
+**Phase 3: Transcript Quantification**
