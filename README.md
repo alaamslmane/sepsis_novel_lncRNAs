@@ -24,7 +24,7 @@ The pipeline is organized into three main phases:
 
 **Phase 2: Hybrid Transcriptome Assembly**
 
-- **`01_hybrid_assembly.sh`**: Performs reference-guided hybrid transcriptome assembly by integrating matched short-read and long-read RNA-seq alignments using `StringTie`.
+- **`05_hybrid_assembly.sh`**: Performs reference-guided hybrid transcriptome assembly by integrating matched short-read and long-read RNA-seq alignments using `StringTie`.
 - 
 
 **Phase 3: Transcript Quantification**
