@@ -35,3 +35,4 @@ The pipeline is organized into three main phases:
 **Phase 4: Transcript Quantification**
 
 - **`09_custom_salmon_index.sh`**: Combines GENCODE v49 reference annotations with filtered novel transcript candidates to generate a custom transcriptome annotation. Extracts transcript sequences using `gffread` and constructs a decoy-aware Salmon index by incorporating the GRCh38 reference genome, enabling subsequent transcript-level quantification.
+- **`10_salmon_quantification.sh**`: Quantifies transcript abundance in paired-end short-read RNA-seq samples using Salmon and the custom decoy-aware transcriptome index combining GENCODE v49 annotations with newly identified transcript candidates.
