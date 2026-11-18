@@ -1,1 +1,158 @@
+#!/bin/bash
+# ==============================================================================
+# Script: 05_hybrid_assembly.sh
+# Purpose: Perform hybrid transcriptome assembly using short-read and
+#          long-read RNA-seq alignments with StringTie --mix, followed
+#          by transcript assembly merging across samples.
+# ==============================================================================
+
+set -e
+set -o pipefail
+
+# ------------------------------------------------------------------------------
+# 1. Define Directories and Parameters
+# ------------------------------------------------------------------------------
+
+SHORT_DIR="/data/records_wts/04_star"
+LONG_DIR="/data/records/ONT/long_reads/04_minimap2"
+
+PROJECT_DIR="/data/records_wts/03_hybrid_assembly"
+SORTED_DIR="${PROJECT_DIR}/sorted_long_reads"
+OUT_DIR="${PROJECT_DIR}/stringtie"
+
+GENCODE_VERSION="v49"
+
+ANNOTATION_FILE="/data/Ressources/gencode/gencode.${GENCODE_VERSION}.primary_assembly.annotation.gtf"
+
+THREADS=8
+
+mkdir -p "${SORTED_DIR}" "${OUT_DIR}"
+
+echo "=========================================="
+echo "StringTie Hybrid Transcriptome Assembly"
+echo "Reference annotation: GENCODE ${GENCODE_VERSION}"
+echo "Short-read BAMs: ${SHORT_DIR}"
+echo "Long-read BAMs: ${LONG_DIR}"
+echo "=========================================="
+
+# ------------------------------------------------------------------------------
+# 2. Match Short-Read and Long-Read Samples
+# ------------------------------------------------------------------------------
+
+echo "Starting hybrid transcriptome assembly..."
+
+counter=0
+
+for long_bam in "${LONG_DIR}"/*.bam; do
+
+    # Extract sample identifier
+    id=$(basename "${long_bam}" .bam)
+
+    # Corresponding STAR-aligned short-read BAM
+    short_bam="${SHORT_DIR}/${id}.Aligned.sortedByCoord.out.bam"
+
+    # Process only samples with both sequencing datasets
+    if [ ! -f "${short_bam}" ]; then
+        echo "Skipping ${id}: matching short-read BAM not found."
+        continue
+    fi
+
+    ((counter+=1))
+
+    echo "=========================================="
+    echo "Processing sample: ${id} (n=${counter})"
+    echo "=========================================="
+
+    # --------------------------------------------------------------------------
+    # 3. Sort Long-Read BAM Files
+    # --------------------------------------------------------------------------
+
+    sorted_long_bam="${SORTED_DIR}/${id}.sorted.bam"
+
+    echo "Sorting long-read BAM for ${id}..."
+
+    samtools sort \
+        -@ "${THREADS}" \
+        -o "${sorted_long_bam}" \
+        "${long_bam}"
+
+    # --------------------------------------------------------------------------
+    # 4. Hybrid Transcriptome Assembly Using StringTie
+    # --------------------------------------------------------------------------
+
+    echo "Running StringTie --mix for ${id}..."
+
+    stringtie \
+        --mix \
+        "${short_bam}" \
+        "${sorted_long_bam}" \
+        -G "${ANNOTATION_FILE}" \
+        -p "${THREADS}" \
+        --fr \
+        -c 2 \
+        -s 10 \
+        -f 0.1 \
+        -l SEAT \
+        -x chrM \
+        -o "${OUT_DIR}/${id}.gtf"
+
+    echo "Assembly completed: ${id}"
+
+done
+
+if [ "${counter}" -eq 0 ]; then
+    echo "ERROR: No matching short-read/long-read samples found."
+    exit 1
+fi
+
+# ------------------------------------------------------------------------------
+# 5. Merge Individual Transcript Assemblies
+# ------------------------------------------------------------------------------
+
+echo "Merging transcript assemblies..."
+
+# Generate a list of sample-level GTF files
+find "${OUT_DIR}" -maxdepth 1 -type f \
+    -name "*.gtf" ! -name "merged_pass1.gtf" \
+    | LC_ALL=C sort > "${OUT_DIR}/pass1_file_list.txt"
+
+stringtie \
+    --merge \
+    -p "${THREADS}" \
+    -m 200 \
+    -l SEAT \
+    -o "${OUT_DIR}/merged_pass1.gtf" \
+    "${OUT_DIR}/pass1_file_list.txt"
+
+echo "Transcript assembly merging completed."
+
+# ------------------------------------------------------------------------------
+# 6. Exclude Alternative Reference Contigs
+# ------------------------------------------------------------------------------
+
+echo "Removing GL and KI contigs..."
+
+# Preserve the original exclusion criteria
+sed -i '/^GL/d; /^KI/d' "${OUT_DIR}/merged_pass1.gtf"
+
+# ------------------------------------------------------------------------------
+# 7. Summarize the Merged Transcriptome
+# ------------------------------------------------------------------------------
+
+echo "Counting assembled transcripts..."
+
+n_transcripts=$(awk '$3 == "transcript"' \
+    "${OUT_DIR}/merged_pass1.gtf" | wc -l)
+
+# ------------------------------------------------------------------------------
+# 8. Pipeline Completion
+# ------------------------------------------------------------------------------
+
+echo "=========================================="
+echo "Hybrid transcriptome assembly completed."
+echo "Samples processed: ${counter}"
+echo "Sample-level assemblies: ${OUT_DIR}"
+echo "Merged annotation: ${OUT_DIR}/merged_pass1.gtf"
+echo "Number of transcripts: ${n_transcripts}"
+echo "=========================================="
 
