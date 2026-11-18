@@ -1,9 +1,8 @@
-
 #!/bin/bash
 # ==============================================================================
-# Script: 01_gffcompare_filtering.sh
+# Script: 06_gffcompare_filtering.sh
 # Purpose: Classify assembled transcripts against GENCODE v49 and retain
-#          transcripts with gffcompare class codes i, u, or o.
+#          transcripts with gffcompare class codes u, i, x and  y
 # ==============================================================================
 
 set -e
