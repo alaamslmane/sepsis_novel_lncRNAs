@@ -37,3 +37,31 @@ The pipeline is organized into three main phases:
 - **`09_custom_salmon_index.sh`**: Combines GENCODE v49 reference annotations with filtered novel transcript candidates to generate a custom transcriptome annotation. Extracts transcript sequences using `gffread` and constructs a decoy-aware Salmon index by incorporating the GRCh38 reference genome, enabling subsequent transcript-level quantification.
 - **`10_salmon_quantification.sh`**: Quantifies transcript abundance in paired-end short-read RNA-seq samples using Salmon and the custom decoy-aware transcriptome index combining GENCODE v49 annotations with newly identified transcript candidates.
 - **`11_generate_expression_matrices.R`**: Integrates sample-level Salmon quantification results and the custom transcript annotation to generate transcript- and gene-level expression matrices.
+
+### Dependencies
+
+fastp
+
+FastQC, FastQ Screen, MultiQC
+
+STAR
+
+NanoPlot, Chopper
+
+minimap2
+
+SAMtools
+
+Qualimap, Cramino
+
+StringTie (--mix for hybrid transcriptome assembly)
+
+gffcompare, gffread
+
+ezLncPred (CNCI, CPC2, CPAT)
+
+Salmon (decoy-aware indexing and transcript quantification)
+
+GNU Utilities (wget, md5sum, gzip, awk, sed, sort)
+
+R packages: dplyr, readr, stringr, tibble, magrittr, rtracklayer
