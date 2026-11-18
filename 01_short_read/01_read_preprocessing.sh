@@ -329,14 +329,114 @@ for sample in "${SAMPLES[@]}"; do
 
 done
 
+
 # ------------------------------------------------------------------------------
-# 7. Pipeline Completion
+# 7. FASTQ Quality Control Using FastQC and FastQ Screen
+# ------------------------------------------------------------------------------
+
+echo "Starting FASTQ quality control..."
+
+QC_DIR="${PROJECT_DIR}/03_qc_fastq"
+
+mkdir -p "${QC_DIR}/fastqc"
+mkdir -p "${QC_DIR}/fastq_screen"
+mkdir -p "${QC_DIR}/multiqc_report"
+
+# 7.1. Run FastQC on merged raw FASTQ files
+
+echo "Running FastQC..."
+
+for sample in "${SAMPLES[@]}"; do
+
+    fastqc \
+        "${FASTQ_DIR}/${sample}_R1.fastq.gz" \
+        "${FASTQ_DIR}/${sample}_R2.fastq.gz" \
+        --outdir "${QC_DIR}/fastqc"
+
+done
+
+# 7.2. Run FastQ Screen on merged raw FASTQ files
+
+echo "Running FastQ Screen..."
+
+for sample in "${SAMPLES[@]}"; do
+
+    fastq_screen \
+        "${FASTQ_DIR}/${sample}_R1.fastq.gz" \
+        "${FASTQ_DIR}/${sample}_R2.fastq.gz" \
+        --outdir "${QC_DIR}/fastq_screen"
+
+done
+
+# ------------------------------------------------------------------------------
+# 7. FASTQ Quality Control Using FastQC and FastQ Screen
+# ------------------------------------------------------------------------------
+
+echo "Starting FASTQ quality control..."
+
+QC_DIR="${PROJECT_DIR}/03_qc_fastq"
+
+mkdir -p "${QC_DIR}/fastqc"
+mkdir -p "${QC_DIR}/fastq_screen"
+mkdir -p "${QC_DIR}/multiqc_report"
+
+# 7.1. Run FastQC on merged raw FASTQ files
+
+echo "Running FastQC..."
+
+for sample in "${SAMPLES[@]}"; do
+
+    fastqc \
+        "${FASTQ_DIR}/${sample}_R1.fastq.gz" \
+        "${FASTQ_DIR}/${sample}_R2.fastq.gz" \
+        --outdir "${QC_DIR}/fastqc"
+
+done
+
+# 7.2. Run FastQ Screen on merged raw FASTQ files
+
+echo "Running FastQ Screen..."
+
+for sample in "${SAMPLES[@]}"; do
+
+    fastq_screen \
+        "${FASTQ_DIR}/${sample}_R1.fastq.gz" \
+        "${FASTQ_DIR}/${sample}_R2.fastq.gz" \
+        --outdir "${QC_DIR}/fastq_screen"
+
+done
+
+# ------------------------------------------------------------------------------
+# 8. Summarize Quality Control Reports Using MultiQC
+# ------------------------------------------------------------------------------
+
+echo "Generating MultiQC report..."
+
+multiqc \
+    -f -v \
+    -m fastp \
+    -m fastqc \
+    -m fastq_screen \
+    "${FASTP_DIR}" \
+    "${QC_DIR}/fastqc" \
+    "${QC_DIR}/fastq_screen" \
+    -n "multiqc_$(date +'%Y-%m-%d').html" \
+    -o "${QC_DIR}/multiqc_report"
+
+echo "FASTQ quality control completed."
+
+# ------------------------------------------------------------------------------
+# 9. Pipeline Completion
 # ------------------------------------------------------------------------------
 
 echo "=========================================================="
-echo "Short-read RNA-seq preprocessing completed successfully."
+echo "Short-read RNA-seq preprocessing and QC completed successfully."
 echo "Number of samples: ${#SAMPLES[@]}"
-echo "Raw FASTQ files:    ${DOWNLOAD_DIR}"
-echo "Merged FASTQ files: ${FASTQ_DIR}"
-echo "Processed FASTQ:    ${FASTP_DIR}"
+echo "Raw FASTQ files:      ${DOWNLOAD_DIR}"
+echo "Merged FASTQ files:   ${FASTQ_DIR}"
+echo "Processed FASTQ:      ${FASTP_DIR}"
+echo "FastQC reports:       ${QC_DIR}/fastqc"
+echo "FastQ Screen reports: ${QC_DIR}/fastq_screen"
+echo "MultiQC report:       ${QC_DIR}/multiqc_report"
 echo "=========================================================="
+
