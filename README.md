@@ -9,7 +9,7 @@ The pipeline is organized into three main phases:
 
 **A. Short-read RNA-seq Processing**
 
-- **`01_read_preprocessing.sh`**: Downloads raw paired-end FASTQ files, verifies file integrity using MD5 checksums, and merges sequencing lanes for each sample. Validates paired-end read concordance before performing adapter trimming and quality filtering with `fastp`, generating processed FASTQ files and sample-specific QC reports.
+- **`01_read_preprocessing.sh`**: Downloads raw paired-end FASTQ files, verifies file integrity using MD5 checksums, and merges sequencing lanes for each sample. Checks R1/R2 read concordance and performs adapter trimming and quality filtering using `fastp`. Sequencing quality is assessed using `FastQC` and `FastQ Screen`, with QC metrics consolidated into a single MultiQC report.
 - **`02_STAR_alignment.sh`**: Aligns fastp-processed paired-end reads to the human reference genome (GRCh38) using `STAR`, with GENCODE v49 annotations.
 - **`03_BAM_quality_control.sh`**: Evaluates alignment quality and RNA-seq-specific metrics using `SAMtools` and `Qualimap`.
 
