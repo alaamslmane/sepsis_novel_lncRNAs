@@ -39,6 +39,7 @@ The pipeline is organized into three main phases:
 - **`11_generate_expression_matrices.R`**: Integrates sample-level Salmon quantification results and the custom transcript annotation to generate transcript- and gene-level expression matrices.
 
 ### Dependencies
+
 **fastp**
 
 **FastQC, FastQ Screen, MultiQC**
