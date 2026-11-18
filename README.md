@@ -39,29 +39,29 @@ The pipeline is organized into three main phases:
 - **`11_generate_expression_matrices.R`**: Integrates sample-level Salmon quantification results and the custom transcript annotation to generate transcript- and gene-level expression matrices.
 
 ### Dependencies
-
+---
 **fastp**
 
-**`FastQC, FastQ Screen, MultiQC`**
+**FastQC, FastQ Screen, MultiQC**
 
-**`STAR`**
+**STAR**
 
-**`NanoPlot, Chopper`**
+**NanoPlot, Chopper**
 
-**`minimap2`**
+**minimap2**
 
-**`SAMtools`**
+**SAMtools**
 
-**`Qualimap, Cramino`**
+**Qualimap, Cramino**
 
-**`StringTie`**
+**StringTie**
 
-**`gffcompare, gffread`**
+**gffcompare, gffread**
 
-**`ezLncPred (CNCI, CPC2, CPAT)`**
+**ezLncPred (CNCI, CPC2, CPAT)**
 
-**`Salmon`**
+**Salmon**
 
-**`GNU Utilities (wget, md5sum, gzip, awk, sed, sort)`**
+**GNU Utilities (wget, md5sum, gzip, awk, sed, sort)**
 
 **`R packages: dplyr, readr, stringr, tibble, magrittr, rtracklayer`**
