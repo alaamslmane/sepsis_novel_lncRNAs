@@ -25,6 +25,11 @@ The pipeline is organized into three main phases:
 **Phase 2: Hybrid Transcriptome Assembly**
 
 - **`05_hybrid_assembly.sh`**: Performs reference-guided hybrid transcriptome assembly by integrating matched short-read and long-read RNA-seq alignments using `StringTie`.
-- 
 
-**Phase 3: Transcript Quantification**
+**Phase 3: Novel Transcript Annotation and Coding Potential Assessment**
+
+- **`06_gffcompare_filtering.sh`**: Compares the merged hybrid transcriptome assembly against GENCODE v49 using `gffcompare`.
+- **`07_coding_potential.sh`**: Extracts transcript sequences using gffread and evaluates protein-coding potential using three complementary prediction methods: `CNCI`, `CPC2`, and `CPAT`, implemented through `ezLncPred`.
+- **`08_noncoding_transcript_filtering.R`**: Integrates coding-potential predictions.
+
+**Phase 4: Transcript Quantification**
