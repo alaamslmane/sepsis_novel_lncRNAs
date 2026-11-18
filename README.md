@@ -15,7 +15,6 @@ The pipeline is organized into three main phases:
 - **`02_alignment.sh`**: Aligns fastp-processed paired-end reads to the human reference genome (GRCh38) using `STAR`, with GENCODE v49 annotations.
 - **`03_BAM_QC.sh`**: Assesses STAR-aligned BAM files using SAMtools and Qualimap. Generates alignment statistics, evaluates BAM quality metrics, and performs RNA-seq-specific quality assessment using GENCODE v49 annotations and a reverse-stranded paired-end library configuration.
 
-  
 **B. Long-read RNA-seq**
 
 - **`01_read_QC.sh`**: Downloads raw FASTQ files, verifies file integrity using MD5 checksums, and assesses read length distributions and sequencing quality using `NanoPlot`.
