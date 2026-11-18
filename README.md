@@ -40,28 +40,28 @@ The pipeline is organized into three main phases:
 
 ### Dependencies
 
-fastp
+**`fastp`**
 
-FastQC, FastQ Screen, MultiQC
+**`FastQC, FastQ Screen, MultiQC`**
 
-STAR
+**`STAR`**
 
-NanoPlot, Chopper
+**`NanoPlot, Chopper`**
 
-minimap2
+**`minimap2`**
 
-SAMtools
+**`SAMtools`**
 
-Qualimap, Cramino
+**`Qualimap, Cramino`**
 
-StringTie (--mix for hybrid transcriptome assembly)
+**`StringTie`**
 
-gffcompare, gffread
+**`gffcompare, gffread`**
 
-ezLncPred (CNCI, CPC2, CPAT)
+**`ezLncPred (CNCI, CPC2, CPAT)`**
 
-Salmon (decoy-aware indexing and transcript quantification)
+**`Salmon`**
 
-GNU Utilities (wget, md5sum, gzip, awk, sed, sort)
+**`GNU Utilities (wget, md5sum, gzip, awk, sed, sort)`**
 
-R packages: dplyr, readr, stringr, tibble, magrittr, rtracklayer
+**`R packages: dplyr, readr, stringr, tibble, magrittr, rtracklayer`**
